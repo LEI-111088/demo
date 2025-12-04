@@ -28,23 +28,38 @@ public class MainPageTest {
 
     @Test
     public void search() {
+        wait(3);
         mainPage.searchButton.click();
-        $("[data-test='search-input']").sendKeys("Selenium");
+        wait(1);
+        $("[data-test-id='search-input']").sendKeys("Selenium");
+        wait(1);
         $("button[data-test='full-search-button']").click();
-        $("input[data-test='search-input']").shouldHave(attribute("value", "Selenium"));
+        wait(1);
+        $("input[data-test-id='search-input']").shouldHave(attribute("value", "Selenium"));
     }
 
     @Test
     public void toolsMenu() {
-        mainPage.toolsMenu.click();
-        $("div[data-test='main-submenu']").shouldBe(visible);
+        mainPage.devButton.click();
+        wait(1);
+        $("div[data-test='main-submenu-suggestions']").shouldBe(visible);
     }
 
     @Test
     public void navigationToAllTools() {
-        mainPage.seeDeveloperToolsButton.click();
+        mainPage.devButton.click();
+        wait(1);
         mainPage.findYourToolsButton.click();
         $("#products-page").shouldBe(visible);
         assertEquals("All Developer Tools and Products by JetBrains", Selenide.title());
+    }
+
+    public void wait(int sec){
+        int mili = sec * 1000;
+        try{
+            Thread.sleep(mili);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
