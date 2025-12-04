@@ -6,13 +6,13 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
 import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class MainPageTest {
-
     MainPage mainPage = new MainPage();
 
     @BeforeAll
@@ -28,23 +28,50 @@ public class MainPageTest {
 
     @Test
     public void search() {
+        try{
+            Thread.sleep(3000);
+        }
+        catch(Exception e){}
+
         mainPage.searchButton.click();
-        $("[data-test='search-input']").sendKeys("Selenium");
+
+        $("[data-test-id='search-input']").sendKeys("Selenium");
         $("button[data-test='full-search-button']").click();
-        $("input[data-test='search-input']").shouldHave(attribute("value", "Selenium"));
+
+        $("input[data-test-id='search-input']").shouldHave(attribute("value", "Selenium"));
     }
 
     @Test
     public void toolsMenu() {
         mainPage.toolsMenu.click();
-        $("div[data-test='main-submenu']").shouldBe(visible);
+
+        try{
+            Thread.sleep(3000);
+        }
+        catch(Exception e){}
+
+        $("div[data-test='main-submenu-suggestion']").shouldBe(visible);
+        //nome da data-test estava errado entao alterei
     }
 
     @Test
     public void navigationToAllTools() {
         mainPage.seeDeveloperToolsButton.click();
+        try{
+            Thread.sleep(3000);
+        }
+        catch(Exception e){}
+
         mainPage.findYourToolsButton.click();
+        //nao esta a clicar no botao
+
+        try{
+            Thread.sleep(3000);
+        }
+        catch(Exception e){}
+
         $("#products-page").shouldBe(visible);
+
         assertEquals("All Developer Tools and Products by JetBrains", Selenide.title());
     }
 }
