@@ -63,7 +63,7 @@ public class MainPageTest {
         catch(Exception e){}
 
         mainPage.findYourToolsButton.click();
-        //nao esta a clicar no botao
+        //tive de alterar o nome no MainPage
 
         try{
             Thread.sleep(3000);
