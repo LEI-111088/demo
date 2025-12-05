@@ -32,6 +32,7 @@ public class MainPageTest {
     @BeforeEach
     public void setUp() {
         open("https://www.jetbrains.com/");
+        mainPage.acceptCookiesIfPresent();
     }
 
     @Test
@@ -53,6 +54,7 @@ public class MainPageTest {
         $("div[data-test='main-submenu-suggestions']").shouldBe(visible);
     }
 
+    @DisplayName("Navigation to All Developer Tools Page")
     @Test
     public void navigationToAllTools() {
         mainPage.seeDeveloperToolsButton.click();
