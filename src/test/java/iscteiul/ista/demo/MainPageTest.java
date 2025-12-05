@@ -30,22 +30,31 @@ public class MainPageTest {
     @Test
     public void search() {
         mainPage.searchButton.click();
-        $("[data-test='search-input']").sendKeys("Selenium");
+
+        $("[data-test-id='search-input']").sendKeys("Selenium");
         $("button[data-test='full-search-button']").click();
-        $("input[data-test='search-input']").shouldHave(attribute("value", "Selenium"));
+
+        $("input[data-test-id='search-input']").shouldHave(attribute("value", "Selenium"));
     }
 
     @Test
     public void toolsMenu() {
         mainPage.toolsMenu.click();
-        $("div[data-test='main-submenu']").shouldBe(visible);
+        $("div[data-test='main-submenu-suggestion']").shouldBe(visible);
     }
 
     @DisplayName("Navigation to All Developer Tools Page")
     @Test
     public void navigationToAllTools() {
         mainPage.seeDeveloperToolsButton.click();
-        mainPage.clickFindYourTools();
+
+        try{
+            Thread.sleep(3000);
+        }
+        catch(Exception e){}
+
+        mainPage.findYourToolsButton.click();
+
         $("#products-page").shouldBe(visible);
         assertEquals("All Developer Tools and Products by JetBrains", Selenide.title());
     }
